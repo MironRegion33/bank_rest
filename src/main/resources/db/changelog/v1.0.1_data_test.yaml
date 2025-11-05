@@ -1,0 +1,87 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2-add-test-data
+      author: you
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: "admin"
+              - column:
+                  name: password
+                  value: "$2a$10$ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKL"
+              - column:
+                  name: role
+                  value: "ADMIN"
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: "user"
+              - column:
+                  name: password
+                  value: "$2a$10$XYZABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJ"
+              - column:
+                  name: role
+                  value: "USER"
+
+        - insert:
+            tableName: cards
+            columns:
+              - column:
+                  name: card_number
+                  value: "4111111111110001"
+              - column:
+                  name: owner_id
+                  valueComputed: (SELECT id FROM users WHERE username = 'admin')
+              - column:
+                  name: expiration_date
+                  value: "2030-12-31"
+              - column:
+                  name: status
+                  value: "ACTIVE"
+              - column:
+                  name: balance
+                  value: "10000.00"
+
+        - insert:
+            tableName: cards
+            columns:
+              - column:
+                  name: card_number
+                  value: "5555444433331111"
+              - column:
+                  name: owner_id
+                  valueComputed: (SELECT id FROM users WHERE username = 'user')
+              - column:
+                  name: expiration_date
+                  value: "2028-06-30"
+              - column:
+                  name: status
+                  value: "ACTIVE"
+              - column:
+                  name: balance
+                  value: "1500.50"
+
+        - insert:
+            tableName: cards
+            columns:
+              - column:
+                  name: card_number
+                  value: "5555444433332222"
+              - column:
+                  name: owner_id
+                  valueComputed: (SELECT id FROM users WHERE username = 'user')
+              - column:
+                  name: expiration_date
+                  value: "2029-05-31"
+              - column:
+                  name: status
+                  value: "ACTIVE"
+              - column:
+                  name: balance
+                  value: "2500.75"
